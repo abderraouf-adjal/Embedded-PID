@@ -1,0 +1,22 @@
+# Syntax coloring map for Arduino IDE v1.6.5 and newer.
+
+# Data types
+epid_info_t	KEYWORD1
+epid_t	KEYWORD1
+
+# Functions (KEYWORD2)
+epid_init	KEYWORD2
+epid_init_T	KEYWORD2
+epid_pi_calc	KEYWORD2
+epid_pid_calc	KEYWORD2
+epid_pi_sum	KEYWORD2
+epid_pid_sum	KEYWORD2
+epid_util_ilim	KEYWORD2
+
+# Constants (LITERAL1)
+EPID_LIB_VERSION	LITERAL1
+EPID_FEATURE_VALID_FLT	LITERAL1
+EPID_NUM_ZERO	LITERAL1
+EPID_ERR_NONE	LITERAL1
+EPID_ERR_INIT	LITERAL1
+EPID_ERR_FLT	LITERAL1
