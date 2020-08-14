@@ -1,0 +1,22 @@
+{
+    "name": "Embedded Type-C PID",
+    "version": "1.0.0",
+    "description": "Implementation of PID controller (Type-C) with a flexible API and errors handling.",
+    "keywords": "arduino, pid, controller, implementation",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/abderraouf-adjal/Embedded-PID.git"
+    },
+    "authors": [
+        {
+            "name": "Abderraouf Adjal",
+            "email": "abderraouf.adjal@gmail.com",
+            "url": "https://github.com/abderraouf-adjal",
+            "maintainer": true
+        }
+    ],
+    "license": "ISC",
+    "homepage": "https://github.com/abderraouf-adjal/Embedded-PID",
+    "frameworks": "*",
+    "platforms": "*"
+}

@@ -122,7 +122,7 @@ void epid_pid_calc(epid_t *ctx, float setpoint, float measure)
 void epid_pi_sum(epid_t *ctx, float out_min, float out_max)
 {
 #ifdef EPID_FEATURE_VALID_FLT
-    /* Note: Checking `epid_init_yk_1()` errors is recommended. */
+    /* Note: Checking `epid_init*()` errors is recommended. */
     const float y_prev = ctx->y_out;
 #endif
 
@@ -148,7 +148,7 @@ void epid_pi_sum(epid_t *ctx, float out_min, float out_max)
 void epid_pid_sum(epid_t *ctx, float out_min, float out_max)
 {
 #ifdef EPID_FEATURE_VALID_FLT
-    /* Note: Checking `epid_init_yk_1()` errors is recommended. */
+    /* Note: Checking `epid_init*()` errors is recommended. */
     const float y_prev = ctx->y_out;
 #endif
 
