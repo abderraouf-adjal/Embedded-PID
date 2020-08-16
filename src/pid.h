@@ -17,8 +17,8 @@
 
 /**
  * Project name: EPID (Embedded Proportional-Integral-Derivative (PID) controller).
- * Semantic versioning: 1.0.0
- * Version date (ISO-8601): 2020-08-13
+ * Semantic versioning: 1.0.1
+ * Version date (ISO-8601): 2020-08-14
  * C standard: C99 (ISO/IEC 9899:1999) or later.
  * 
  * Description:
@@ -59,7 +59,7 @@ extern "C" {
 #endif
 
 /* API and behavior semantic versioning. */
-#define EPID_LIB_VERSION "1.0.0"
+#define EPID_LIB_VERSION "1.0.1"
 
 /* To help with data-type modification. */
 #define EPID_NUM_ZERO 0.0f
@@ -74,18 +74,18 @@ typedef uint_fast8_t epid_info_t; /* An unsigned type for errors flag. */
 
 typedef struct {
     /* Controller settings. */
-    float kp; /* Controller proportional gain (no unit); `Kc=Kp`. */
-    float ki; /* Constant value for I-term. */
-    float kd; /* Constant value for D-term. */
+    float kp; /* Gain constant `Kp` for P-term. */
+    float ki; /* Gain constant `Ki` for I-term. */
+    float kd; /* Gain constant `Kd` for D-term. */
 
     /* Controller states. */
-    float xk_1; /* measure `PV[k-1]`. */
-    float xk_2; /* measure `PV[k-2]`. */
+    float xk_1; /* Physical measurement `PV[k-1]`. */
+    float xk_2; /* Physical measurement `PV[k-2]`. */
 
     /* Controller outputs. */
-    float p_term; /* The P-term value */
-    float i_term; /* The I-term value */
-    float d_term; /* The D-term value */
+    float p_term; /* The P-term calculated value `P[k]`. */
+    float i_term; /* The I-term calculated value `I[k]`. */
+    float d_term; /* The D-term calculated value `D[k]`. */
 
     float y_out; /* The controller output (CV). `y[k] = y[k-1] + delta[k]` */
 } epid_t;
