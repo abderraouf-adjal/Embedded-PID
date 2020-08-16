@@ -22,12 +22,12 @@
  * C standard: C99 (ISO/IEC 9899:1999) or later.
  * 
  * Description:
- * Portable implementation of "Type-C PID controller"[*] for both hosted
+ * Portable implementation of "Type-C PID controller" for both hosted
  * and freestanding C environments with a flexible API that allow the usage of
  * third-party external and/or internal filter(s) for a better control
  * backed with errors and exceptions handling.
  * 
- * Type-C PID controller equations brief:
+ * Type-C PID controller equations brief [*]:
  * `x`: Measured process variable (PV).
  * `P[k] = Kp * (x[k-1] - x[k])`
  * `I[k] = Ki * e[k] = Ki * (SP - x[k])`
