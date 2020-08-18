@@ -27,12 +27,13 @@
  * third-party external and/or internal filter(s) for a better control
  * backed with errors and exceptions handling.
  * 
- * Type-C PID controller equations brief [*]:
- * `x`: Measured process variable (PV).
+ * Equations brief [*]:
  * `P[k] = Kp * (x[k-1] - x[k])`
  * `I[k] = Ki * e[k] = Ki * (SP - x[k])`
  * `D[k] = Kp * (2*x[k-1] - x[k-2] - x[k])`
  * `y[k] = y[k-1] + delta[k] = y[k-1] + P[k] + I[k] + D[k]`
+ * `x`: Measured process variable (PV).
+ * `y`: Control variable (CV/CO).
  * 
  * [*]: D. M. Auslander, Y. Takahashi and M. Tomizuka, "Direct digital process
  * control: Practice and algorithms for microprocessor application,"
