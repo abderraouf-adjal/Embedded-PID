@@ -56,14 +56,15 @@ extern "C" {
 /* A switch to define `EPID_FEATURE_VALID_FLT`. */
 #if 1
 # define EPID_FEATURE_VALID_FLT 1 /* To check against floating-point errors. */
-# include <math.h> /* For `isfinite()` and `isnan()` (implementation defined). */
+/* For `isfinite(), isnan(), isnormal()` (implementation defined). */
+# include <math.h>
 #endif
 
 /* API and behavior semantic versioning. */
 #define EPID_LIB_VERSION "1.0.2"
 
-/* To help with data-type modification. */
-#define EPID_NUM_ZERO 0.0f
+/* To help with data-type (Integer, float, double) modification. */
+#define EPID_FP_ZERO 0.0f
 
 /* For errors management; Type: epid_info_t */
 #define EPID_ERR_INIT (0U) /* Bad Initialization. */
