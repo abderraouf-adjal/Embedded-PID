@@ -52,12 +52,10 @@ epid_info_t epid_init(epid_t *ctx,
     ctx->xk_2 = xk_2; /* Set `x[k-1]` for D-term */
     ctx->y_out = y_previous; /* Set `y[k-1]` */
 
-    /* P-term gain constant. */
-    ctx->kp = kp; /* Direct `Kp` assignment. */
-    /* I-term gain constant. */
-    ctx->ki = ki; /* Direct `Ki` assignment. */
-    /* D-term gain constant. */
-    ctx->kd = kd; /* Direct `Kd` assignment. */
+    /* Direct gains assignments. */
+    ctx->kp = kp; /* P-term gain constant. */
+    ctx->ki = ki; /* I-term gain constant. */
+    ctx->kd = kd; /* D-term gain constant. */
 
     return EPID_ERR_NONE;
 }
@@ -90,11 +88,9 @@ epid_info_t epid_init_T(epid_t *ctx,
     }
 #endif
     
-    /* I-term gain constant. */
-    /* `Ki = Kp / (Ti / Ts) = (Kp * Ts) / Ti` */
+    /* I-term gain constant; `Ki = Kp / (Ti / Ts) = (Kp * Ts) / Ti` */
     const float ki = (kp * sample_period) / ti;
-    /* D-term gain constant. */
-    /* `Kd = Kp * (Td / Ts)` */
+    /* D-term gain constant; `Kd = Kp * (Td / Ts)` */
     const float kd = kp * (td / sample_period);
 
     return epid_init(ctx,
@@ -111,8 +107,7 @@ void epid_pi_calc(epid_t *ctx, float setpoint, float measure)
     ctx->p_term = ctx->kp * (ctx->xk_1 - measure);
     ctx->i_term = ctx->ki * (setpoint - measure);
 
-    /* `x[k-1] = x[k]` */
-    ctx->xk_1 = measure;
+    ctx->xk_1 = measure; /* `x[k-1] = x[k]` */
 }
 
 
@@ -127,17 +122,15 @@ void epid_pid_calc(epid_t *ctx, float setpoint, float measure)
     ctx->d_term = ctx->kd
                 * (ctx->xk_1 + ctx->xk_1 - ctx->xk_2 - measure);
 
-    /* `x[k-2] = x[k-1]` */
-    ctx->xk_2 = ctx->xk_1;
-    /* `x[k-1] = x[k]` */
-    ctx->xk_1 = measure;
+    ctx->xk_2 = ctx->xk_1; /* `x[k-2] = x[k-1]` */
+    ctx->xk_1 = measure;   /* `x[k-1] = x[k]` */
 }
 
 
 void epid_pi_sum(epid_t *ctx, float out_min, float out_max)
 {
 #ifdef EPID_FEATURE_VALID_FLT
-    /* Note: Checking `epid_init*()` errors is recommended. */
+    /* Note: Checking `epid_init*()` errors is very recommended. */
     const float y_prev = ctx->y_out;
 #endif
 
