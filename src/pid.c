@@ -31,17 +31,17 @@ epid_info_t epid_init(epid_t *ctx,
     if ((isfinite(xk_1) == 0)
      || (isfinite(xk_2) == 0)
      || (isfinite(y_previous) == 0)
+     || (isfinite(kp) == 0)
+     || (isfinite(ki) == 0)
      || (isfinite(kd) == 0) /* Okay to be zero for PI controller. */
-     || (isnormal(kp) == 0) /* If NaN, or Inf, or zero, or subnormal. */
-     || (isnormal(ki) == 0)
     ) {
         return EPID_ERR_FLT;
     }
 #endif
 
     if ((ctx == NULL)
-     || (kp < EPID_FP_ZERO)
-     || (ki < EPID_FP_ZERO)
+     || (kp <= EPID_FP_ZERO)
+     || (ki <= EPID_FP_ZERO)
      || (kd < EPID_FP_ZERO)
     ) {
         return EPID_ERR_INIT;
@@ -67,26 +67,19 @@ epid_info_t epid_init_T(epid_t *ctx,
                         float sample_period)
 {
 #ifdef EPID_FEATURE_VALID_FLT
-    if ((isnormal(ti) == 0) /* If NaN, or Inf, or zero, or subnormal. */
-     || (isnormal(sample_period) == 0)
+    if ((isfinite(ti) == 0)
+     || (isfinite(sample_period) == 0)
     ) {
         return EPID_ERR_FLT;
     }
-    /* isnormal() checked if `ti` and `sample_period` are not zero. */
-    if ((ti < EPID_FP_ZERO)
-     || (td <  EPID_FP_ZERO) /* Okay to be zero for PI controller. */
-     || (sample_period < EPID_FP_ZERO)
-    ) {
-        return EPID_ERR_INIT;
-    }
-#else
+#endif
+
     if ((ti <= EPID_FP_ZERO)
      || (td <  EPID_FP_ZERO) /* Okay to be zero for PI controller. */
      || (sample_period <= EPID_FP_ZERO)
     ) {
         return EPID_ERR_INIT;
     }
-#endif
     
     /* I-term gain constant; `Ki = Kp / (Ti / Ts) = (Kp * Ts) / Ti` */
     const float ki = (kp * sample_period) / ti;

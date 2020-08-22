@@ -93,14 +93,14 @@ ki: Gain constant `Ki` for I-term.
 kd: Gain constant `Kd` for D-term.
 
 - {kp, ki, kd} must not be negative.
-- {kp, ki} must not be zero, or subnormal.
+- {kp, ki} must not be zero.
 - {xk_1, xk_2, y_previous, kp, ki, kd} must not be NAN, or INF.
 
 Return:
   - `EPID_ERR_NONE` on success.
   - `EPID_ERR_INIT` if initialization error occurred.
   - `EPID_ERR_FLT` if floating-point arithmetic error occurred.
- */
+*/
 epid_info_t
 epid_init(epid_t *ctx,
           float xk_1, float xk_2, float y_previous,
@@ -124,7 +124,7 @@ td: Reset time constant for D-term [time-unit]; `Td = Kd / Kp`.
 sample_period: Sample time period in [time-unit] for `Ti` and `Td`.
 
 - {kp, ti, td, sample_period} must not be negative.
-- {ti, sample_period} must not be zero, or subnormal.
+- {ti, sample_period} must not be zero.
 - {xk_1, xk_2, y_previous, kp, ti, td, sample_period} must not be NAN, or INF.
 
 Return:

@@ -56,7 +56,7 @@ extern "C" {
 /* A switch to define `EPID_FEATURE_VALID_FLT`. */
 #if 1
 # define EPID_FEATURE_VALID_FLT 1 /* To check against floating-point errors. */
-/* For `isfinite(), isnan(), isnormal()` (implementation defined). */
+/* For `isfinite(), isnan()` (implementation defined). */
 # include <math.h>
 #endif
 
@@ -106,7 +106,7 @@ typedef struct {
  * kd: Gain constant `Kd` for D-term.
  * 
  * - {kp, ki, kd} must not be negative.
- * - {kp, ki} must not be zero, or subnormal.
+ * - {kp, ki} must not be zero.
  * - {xk_1, xk_2, y_previous, kp, ki, kd} must not be NAN, or INF.
  * 
  * Return:
@@ -135,7 +135,7 @@ epid_info_t epid_init(epid_t *ctx,
  * sample_period: Sample time period in [time-unit] for `Ti` and `Td`.
  * 
  * - {kp, ti, td, sample_period} must not be negative.
- * - {ti, sample_period} must not be zero, or subnormal.
+ * - {ti, sample_period} must not be zero.
  * - {xk_1, xk_2, y_previous, kp, ti, td, sample_period} must not be NAN, or INF.
  * 
  * Return:
