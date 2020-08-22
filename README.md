@@ -87,10 +87,14 @@ and set {`x[k-1]`, `x[k-2]`, `y[k-1]`}.
 ctx: Pointer to the `epid_t` context.
 xk_1: A process variable (PV) point `x[k-1]`.
 xk_2: A process variable (PV) point `x[k-2]` for D-term.
-y_out_previous: A control variable (CV) point `y[k-1]`.
+y_previous: A control variable (CV) point `y[k-1]`.
 kp: Gain constant `Kp` for P-term.
 ki: Gain constant `Ki` for I-term.
 kd: Gain constant `Kd` for D-term.
+
+- {kp, ki, kd} must not be negative.
+- {kp, ki} must not be zero, or subnormal.
+- {xk_1, xk_2, y_previous, kp, ki, kd} must not be NAN, or INF.
 
 Return:
   - `EPID_ERR_NONE` on success.
@@ -113,11 +117,15 @@ and set {`x[k-1]`, `x[k-2]`, `y[k-1]`}.
 ctx: Pointer to the `epid_t` context.
 xk_1: A process variable (PV) point `x[k-1]`.
 xk_2: A process variable (PV) point `x[k-2]` for D-term.
-y_out_previous: A control variable (CV) point `y[k-1]`.
+y_previous: A control variable (CV) point `y[k-1]`.
 kp: Gain constant `Kp` for P-term.
 ti: Rate time constant for I-term [1 / time-unit]; `Ti = Kp / Ki`.
 td: Reset time constant for D-term [time-unit]; `Td = Kd / Kp`.
 sample_period: Sample time period in [time-unit] for `Ti` and `Td`.
+
+- {kp, ti, td, sample_period} must not be negative.
+- {ti, sample_period} must not be zero, or subnormal.
+- {xk_1, xk_2, y_previous, kp, ti, td, sample_period} must not be NAN, or INF.
 
 Return:
   - `EPID_ERR_NONE` on success.
