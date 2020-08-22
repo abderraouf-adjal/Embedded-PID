@@ -1,6 +1,6 @@
 {
     "name": "Embedded Type-C PID",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Implementation of PID controller (Type-C) with a flexible API and errors handling.",
     "keywords": "arduino, pid, controller, implementation",
     "repository": {
