@@ -177,6 +177,8 @@ epid_pid_calc(epid_t *ctx, float setpoint, float measure);
 Do processing as a Type-C PID controller and update the calculated
 control variable (`y[k]`) in `epid_t` context.
 `y[k] = y[k-1] + delta[k] = y[k-1] + P[k] + I[k]`
+Note: If `y[k-1]` was FP NaN this will never result normal `y[k]` FP value,
+so checking `epid_init*()` errors is recommended.
 
 ctx: Pointer to the `epid_t` context.
 out_min: Min output from controller.
@@ -190,8 +192,10 @@ epid_pi_sum(epid_t *ctx, float out_min, float out_max);
 /*
 Do processing as a Type-C PID controller and update the calculated
 control variable (`y[k]`) in `epid_t` context.
-Note: There is NO noise filtering on the derivative-term (`D[k]`).
 `y[k] = y[k-1] + delta[k] = y[k-1] + P[k] + I[k] + D[k]`
+Note: There is NO noise filtering on the derivative-term (`D[k]`).
+Note: If `y[k-1]` was FP NaN this will never result normal `y[k]` FP value,
+so checking `epid_init*()` errors is recommended.
 
 ctx: Pointer to the `epid_t` context.
 out_min: Min output from controller.
