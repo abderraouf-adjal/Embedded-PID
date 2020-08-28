@@ -109,7 +109,7 @@ epid_init(epid_t *ctx,
 
 ```c
 /*
-Initialize a `epid_t` context by `Kp` gain and time constants `Ti` and `Td`,
+Initialize or reset a `epid_t` context by `Kp` gain and time constants `Ti` and `Td`,
 and set {`x[k-1]`, `x[k-2]`, `y[k-1]`}.
 `Ki = Kp / (Ti / Ts) = (Kp * Ts) / Ti`
 `Kd = Kp * (Td / Ts)`
