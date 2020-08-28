@@ -94,7 +94,7 @@ typedef struct {
 
 
 /**
- * Initialize a `epid_t` context by direct gains assignment,
+ * Initialize or reset a `epid_t` context by direct gains assignment,
  * and set {`x[k-1]`, `x[k-2]`, `y[k-1]`}.
  * 
  * ctx: Pointer to the `epid_t` context.
@@ -203,6 +203,7 @@ void epid_pid_sum(epid_t *ctx, float out_min, float out_max);
 
 /**
  * Limit I-term `I[k]` value to boundaries as an integrator anti-windup.
+ * Use this function after `epid_pi*_calc()`.
  * 
  * ctx: Pointer to the `epid_t` context.
  * i_min: Min `I[k]` value.
