@@ -189,6 +189,43 @@ void epid_util_ilim(epid_t *ctx, float i_min, float i_max)
 }
 
 
+epid_info_t epid_util_lpf_init(epid_lpf_t *ctx, float smoothing_factor, float x_0)
+{
+#ifdef EPID_FEATURE_VALID_FLT
+    if ((isfinite(smoothing_factor) == 0)
+     || (isfinite(x_0) == 0)
+    ) {
+        return EPID_ERR_FLT;
+    }
+#endif
+
+    if ((ctx == NULL)
+     || (smoothing_factor <= EPID_FP_ZERO)
+     || (smoothing_factor >= EPID_FP_ONE)
+    ) {
+        return EPID_ERR_INIT;
+    }
+
+    /* Filter's smoothing factor. `0 < a < 1` */
+    ctx->smoothing_factor = smoothing_factor;
+    /* `y[0] = smoothing_factor * x[0]` */
+    ctx->y = smoothing_factor * x_0;
+
+    return EPID_ERR_NONE;
+}
+
+
+void epid_util_lpf_calc(epid_lpf_t *ctx, float input)
+{
+    /* Infinite-impulse-response (IIR) single-pole low-pass filter,
+     * an exponentially weighted moving average (EMA).
+     * `y[k] = FILTER(x[k]) = y[k-1] + smoothing_factor * (x[k] - y[k-1])`
+     */
+    const float y_prev = ctx->y;
+    ctx->y = y_prev + ctx->smoothing_factor * (input - y_prev);
+}
+
+
 #ifdef __cplusplus
 }
 #endif

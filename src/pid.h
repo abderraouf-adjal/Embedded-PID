@@ -65,6 +65,7 @@ extern "C" {
 
 /* To help with data-type (Integer, float, double) modification. */
 #define EPID_FP_ZERO 0.0f
+#define EPID_FP_ONE 1.0f
 
 /* For errors management; Type: epid_info_t */
 #define EPID_ERR_INIT (0U) /* Bad Initialization. */
@@ -91,6 +92,11 @@ typedef struct {
 
     float y_out; /* The controller output (CV). `y[k] = y[k-1] + delta[k]` */
 } epid_t;
+
+typedef struct {
+    float smoothing_factor; /* Filter's smoothing factor. `0 <= a <= 1` */
+    float y; /* `y[k] = FILTER(x[k])` */
+} epid_lpf_t;
 
 
 /**
@@ -210,6 +216,40 @@ void epid_pid_sum(epid_t *ctx, float out_min, float out_max);
  * i_max: Max `I[k]` value.
  */
 void epid_util_ilim(epid_t *ctx, float i_min, float i_max);
+
+
+/**
+ * Initialize or reset a `epid_lpf_t` context.
+ * Infinite-impulse-response (IIR) single-pole low-pass filter (LPF),
+ * an exponentially weighted moving average (EMA).
+ * 
+ * Use this function before `epid_util_lpf_calc()`.
+ * smoothing_factor can be defined as: `a = (2PI*dT*f_cut)/(2PI*dT*f_cut + 1)`.
+ * 
+ * ctx: Pointer to the `epid_lpf_t` context.
+ * smoothing_factor: Filter's smoothing factor. `0 < a < 1`.
+ * x_0: Input `x[0]` value.
+ * 
+ * Return:
+ *   - `EPID_ERR_NONE` on success.
+ *   - `EPID_ERR_INIT` if initialization error occurred.
+ *   - `EPID_ERR_FLT` if floating-point arithmetic error occurred.
+ */
+epid_info_t epid_util_lpf_init(epid_lpf_t *ctx, float smoothing_factor, float x_0);
+
+
+/**
+ * Apply an IIR LPF to an input `x[x]`.
+ * Infinite-impulse-response (IIR) single-pole low-pass filter (LPF),
+ * an exponentially weighted moving average (EMA).
+ * `y[k] = FILTER(x[k]) = y[k-1] + smoothing_factor * (x[k] - y[k-1])`
+ * 
+ * Use this function after `epid_pid_calc()` to apply a D-term low-pass filter.
+ * 
+ * ctx: Pointer to the `epid_lpf_t` context.
+ * input: Input `x[x]` value to filter.
+ */
+void epid_util_lpf_calc(epid_lpf_t *ctx, float input);
 
 
 #ifdef __cplusplus
