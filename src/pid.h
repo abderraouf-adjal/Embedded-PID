@@ -18,7 +18,7 @@
 /**
  * Project name: EPID (Embedded Proportional-Integral-Derivative (PID) controller).
  * Semantic versioning: `EPID_LIB_VERSION`
- * Version date (ISO-8601): 2020-08-22
+ * Version date (ISO-8601): 2020-08-29
  * C standard: C99 (ISO/IEC 9899:1999) or later.
  * 
  * Description:
@@ -61,7 +61,7 @@ extern "C" {
 #endif
 
 /* API and behavior semantic versioning. */
-#define EPID_LIB_VERSION "1.0.3"
+#define EPID_LIB_VERSION "1.1.0"
 
 /* To help with data-type (Integer, float, double) modification. */
 #define EPID_FP_ZERO 0.0f
