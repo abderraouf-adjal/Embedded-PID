@@ -52,7 +52,11 @@ EPID_ERR_FLT (1U) /* Floating-point error. */
 epid_info_t; /* Type for errors flag. */
 ```
 
-## Context structure `epid_t`
+## Context structures
+
+### `epid_t`
+
+PID context structure.
 
 ```c
 typedef struct
@@ -73,6 +77,18 @@ float d_term; /* The D-term calculated value `D[k]`. */
 
 float y_out; /* The controller output (CV). `y[k] = y[k-1] + delta[k]` */
 } epid_t;
+```
+
+### `epid_lpf_t`
+
+Low-pass filter context structure.
+
+```c
+typedef struct
+{
+    float smoothing_factor; /* Filter's smoothing factor. `0 <= a <= 1` */
+    float y; /* `y[k] = FILTER(x[k])` */
+} epid_lpf_t;
 ```
 
 ## User functions
@@ -143,6 +159,8 @@ epid_init_T(epid_t *ctx,
 
 #### Step **one (1)** processing functions
 
+`epid_pid_calc()`, `epid_pi_calc()`.
+
 ```c
 /*
 Do processing as a Type-C PI controller to calculated and update
@@ -171,6 +189,8 @@ epid_pid_calc(epid_t *ctx, float setpoint, float measure);
 ```
 
 #### Step **two (2)** processing functions
+
+`epid_pid_sum()`, `epid_pi_sum()`.
 
 ```c
 /*
@@ -207,7 +227,7 @@ epid_pid_sum(epid_t *ctx, float out_min, float out_max);
 
 ### Utilities and filters
 
-I-term anti-windup.
+`epid_util_ilim()`: I-term anti-windup.
 
 ```c
 /*
@@ -224,7 +244,7 @@ epid_util_ilim(epid_t *ctx, float i_min, float i_max);
 
 General infinite-impulse-response (IIR) single-pole low-pass filter (LPF),
 an exponentially weighted moving average (EMA).
-This can be used for D-term filtering.
+This can be used for D-term filtering for example.
 
 ```c
 /*
@@ -232,7 +252,7 @@ Initialize or reset a `epid_lpf_t` context.
 Infinite-impulse-response (IIR) single-pole low-pass filter (LPF),
 an exponentially weighted moving average (EMA).
 
-Use this function before `epid_util_lpf_calc()`.
+Use this function once before `epid_util_lpf_calc()`.
 smoothing_factor can be defined as: `a = (2PI*dT*f_cut)/(2PI*dT*f_cut + 1)`.
 
 ctx: Pointer to the `epid_lpf_t` context.
