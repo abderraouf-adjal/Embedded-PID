@@ -297,6 +297,8 @@ epid_util_lpf_calc(epid_lpf_t *ctx, float input);
 
 GitHub repository: <https://github.com/abderraouf-adjal/Embedded-PID>
 
+Bitbucket repository: <https://bitbucket.org/abderraouf-adjal/embedded-pid>
+
 ---
 
 ## Copyright and licensing
