@@ -61,7 +61,7 @@ extern "C" {
 #endif
 
 /* API and behavior semantic versioning. */
-#define EPID_LIB_VERSION "1.1.2"
+#define EPID_LIB_VERSION "1.1.3"
 
 /* To help with data-type (Integer, float, double) modification. */
 #define EPID_FP_ZERO 0.0f
