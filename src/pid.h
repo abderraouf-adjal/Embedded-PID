@@ -30,7 +30,7 @@
  * Equations brief [*]:
  * `P[k] = Kp * (x[k-1] - x[k])`
  * `I[k] = Ki * e[k] = Ki * (SP - x[k])`
- * `D[k] = Kp * (2*x[k-1] - x[k-2] - x[k])`
+ * `D[k] = Kd * (2*x[k-1] - x[k-2] - x[k])`
  * `y[k] = y[k-1] + delta[k] = y[k-1] + P[k] + I[k] + D[k]`
  * `x`: Measured process variable (PV).
  * `y`: Control variable (CV/CO).

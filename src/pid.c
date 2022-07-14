@@ -108,7 +108,7 @@ void epid_pid_calc(epid_t *ctx, float setpoint, float measure)
 {
     /* P-term value: `P[k] = Kp * (x[k-1] - x[k])`
      * I-term value: `I[k] = Ki * e[k] = Ki * (SP - x[k])`
-     * D-term value: `D[k] = Kp * (2*x[k-1] - x[k-2] - x[k])`
+     * D-term value: `D[k] = Kd * (2*x[k-1] - x[k-2] - x[k])`
      */
     ctx->p_term = ctx->xk_1 - measure;
     ctx->d_term = ctx->kd * (ctx->xk_1 + ctx->p_term - ctx->xk_2);
