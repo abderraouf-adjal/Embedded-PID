@@ -12,6 +12,27 @@ backed with errors and exceptions handling.
 Equations brief *[\*]*:
 
 ```math
+P[k] = K_p \cdot (x[k-1] - x[k])
+```
+
+```math
+I[k] = K_i \cdot e[k] = K_i \cdot (SP - x[k])
+```
+
+```math
+D[k] = K_d \cdot (2x[k-1] - x[k-2] - x[k])
+```
+
+```math
+y[k] = y[k-1] + \Delta[k] = y[k-1] + P[k] + I[k] + D[k]
+```
+
+- \( x \): Measured process variable (PV).
+- \( y \): Control variable (CV/CO).
+
+In case of Markdown math equations rendering issues:
+
+```
 P[k] = Kp * (x[k-1] - x[k])
 I[k] = Ki * e[k] = Ki * (SP - x[k])
 D[k] = Kd * (2*x[k-1] - x[k-2] - x[k])
